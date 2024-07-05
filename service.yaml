@@ -1,21 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: hello-world-deploy
-  labels:
-    app: hello-world
+  name: hello-world-svc
 spec:
-  replicas: 2
+  type: LoadBalancer
   selector:
-    matchLabels:
-      app: hello-world
-  template:
-    metadata:
-      labels:
-        app: hello-world
-    spec:
-      containers:
-        - name: hello-world
-          image: c1t1d0s7/mywebapp:8
-          ports:
-            - containerPort: 8080
+    app: hello-world
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
